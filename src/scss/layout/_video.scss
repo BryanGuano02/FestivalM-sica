@@ -1,0 +1,55 @@
+@use '../base/variables' as v;
+@use '../base/mixins' as m;
+@use 'sass:color';
+
+.video {
+    position: relative;
+    // Para que el video ocupe todo el ancho y alto del contenedor
+    min-height: 50rem;
+    min-width: 70rem;
+    // Para ocultar lo que se desborda
+    overflow: hidden;
+
+    .overlay {
+        // Para dar al overlay el alto y ancho del vídeo
+        position: absolute;
+        inset: 0;
+        // Filtro de color para el overlay
+        background: linear-gradient(135deg,
+                rgba(v.$morado, 0.8),
+                rgba(color.adjust(v.$morado, $lightness: 20%), 0.5));
+        // Para poner los elementos verticalmente centrados
+        display: flex;
+        align-items: center;
+    }
+
+    video {
+        display: block;
+        width: auto;
+
+        @include m.desktop {
+            width: 100%;
+        }
+    }
+}
+
+.contenido-video {
+    // Para posicionar este contenido por enfrente del .overlay
+    // z-index: 1;
+
+    h2 {
+        color: v.$blanco;
+        font-size: 7rem;
+        margin: 0;
+    }
+
+    p {
+        background-color: v.$rosa;
+        display: inline-block;
+        padding: 1rem 2rem;
+        color: v.$blanco;
+        font-size: 2.4rem;
+        font-weight: 700;
+        margin: 0;
+    }
+}
