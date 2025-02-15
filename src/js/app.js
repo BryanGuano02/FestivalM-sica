@@ -11,8 +11,6 @@ function resaltarEnlace() {
         const navLinks = document.querySelectorAll('.navegacion-principal a')
         let actual = '';
 
-
-
         sections.forEach(section => {
             const sectionTop = section.offsetTop
             const sectionHeight = section.clientHeight
@@ -51,25 +49,35 @@ function crearGaleria() {
     const TOTAL_IMAGENES = 16;
 
     for (let i = 1; i <= TOTAL_IMAGENES; i++) {
-        const imagen = document.createElement('IMG')
-        imagen.src = `src/img/gallery/full/${i}.jpg`
-        imagen.alt = 'Imagen de la galería'
+        const imagen = document.createElement('PICTURE')
+        // imagen.loading = 'lazy'
+        // imagen.width = "300"
+        // imagen.height = "200"
+        // imagen.src = `src/img/gallery/thumb/${i}.jpg`
+        // imagen.alt = 'Imagen de la galería'
+        imagen.innerHTML = `
+            <source srcset="build/img/gallery/thumb/${i}.avif" type="image/avif">
+            <source srcset="build/img/gallery/thumb/${i}.webp" type="image/webp">
+            <img loading="lazy" width="200" height="300" src="build/img/gallery/thumb/${i}.jpg" alt="imagen galeria">
+        `;
 
         // Event handler
         imagen.onclick = function () {
             mostrarImagen(i)
         }
-
-
         galeria.appendChild(imagen)
     }
-
 }
 
 function mostrarImagen(i) {
-    const imagen = document.createElement('IMG')
-    imagen.src = `src/img/gallery/full/${i}.jpg`
-    imagen.alt = 'Imagen de la galería'
+    const imagen = document.createElement('PICTURE')
+    // imagen.src = `src/img/gallery/full/${i}.jpg`
+    // imagen.alt = 'Imagen de la galería'
+    imagen.innerHTML = `
+        <source srcset="build/img/gallery/full/${i}.avif" type="image/avif">
+        <source srcset="build/img/gallery/full/${i}.webp" type="image/webp">
+        <img loading="lazy" width="200" height="300" src="build/img/gallery/full/${i}.jpg" alt="imagen galeria">
+    `;
 
     // Generar modal
     const modal = document.createElement('DIV')
@@ -115,7 +123,7 @@ function scrollNav() {
             const sectionScroll = e.target.getAttribute('href')
             const section = document.querySelector(sectionScroll)
 
-            section.scrollIntoView({behavior: 'smooth'})
+            section.scrollIntoView({ behavior: 'smooth' })
         })
     })
 }
